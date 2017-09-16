@@ -1,0 +1,12 @@
+{
+  "name": "170922-lodash",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "sector-slide --server README.md"
+  },
+  "dependencies": {
+    "sector-slide": "^1.2.0"
+  }
+}

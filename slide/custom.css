@@ -1,0 +1,25 @@
+a {
+    color: inherit;
+}
+
+em {
+    font-weight: bold;
+}
+
+strong {
+    font-weight: bold;
+    display: inline-block;
+}
+
+body {
+    background-color: #004;
+    color: #fff;
+}
+
+h1, h2, h3 {
+    color: #ccf;
+}
+
+code {
+    background-color: rgba(255, 255, 255, 0.5);
+}
