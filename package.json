@@ -7,6 +7,7 @@
     "start": "sector-slide --server README.md"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
     "sector-slide": "^1.2.0"
   }
 }
