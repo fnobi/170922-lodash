@@ -56,7 +56,40 @@ const ids = _.map(charaArray, (chara) => {
 
 ### mapValues
 
+```
+const charaData = {
+    25: {
+        name: 'ピカチュウ', type: [ 'でんき' ]
+    },
+    35: {
+        name: 'ピッピ', type: [ 'ノーマル' ]
+    },
+    39: {
+        name: 'プリン', type: [ 'ノーマル' ]
+    }
+};
+
+```
+
+```
+const idCharaName = _.mapValues(charaData, (chara) => {
+    return chara.name;
+});
+// => { 25: 'ピカチュウ': 35: 'ピッピ': 39: 'プリン' }
+```
+
+- オブジェクトの値をひとつずつループして、欲しい値をつくってreturn
+
+- mapとの違いは配列ではなく、**オブジェクトを受け取ってオブジェクトを返す**こと
+
 - 配列を渡すと暗黙的にオブジェクトに変換してくるので注意
+
+```
+const ids = _.mapValues(charaArray, (chara) => {
+    return chara.id;
+});
+// => { 0: 25, 1: 35, 2: 39 }
+```
 
 ### mapKeys
 
