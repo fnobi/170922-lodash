@@ -8,21 +8,81 @@ em {
 
 strong {
     font-weight: bold;
-    display: inline-block;
 }
 
 body {
-    background-color: #004;
+    background-color: #040;
     color: #fff;
 }
 
 h1, h2, h3 {
-    color: #ccf;
+    color: #cfc;
+}
+h1 span,
+h2 span,
+h3 span {
+    display: inline-block;
+}
+
+hr {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    height: 1em;
+}
+
+blockquote {
+    border-left: solid 0.3vw white;
+    padding-left: 0.5em;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 code {
-    background-color: rgba(255, 255, 255, 0.5);
-}</style></head><body><main></article><section><h1>lodash.jsを本当に使いこなす</h1></section><section><h2>リストをいい感じに扱う</h2></section><article><header><h1>lodash.jsを本当に使いこなす</h1><h2>リストをいい感じに扱う</h2></header><ul><li>each</li><li>map, mapValues</li><li>filter, pickBy</li><li>invertBy, groupBy</li><li>shuffle, sample</li><li>sortBy, orderBy</li></ul></article><section><h2>wrapperを使うことで更に複雑な変換</h2></section><section><h2>イデオム系の実装を借りてくる</h2></section><article><header><h1>lodash.jsを本当に使いこなす</h1><h2>イデオム系の実装を借りてくる</h2></header><ul><li>padStart</li><li>throttle, debounce</li></ul></article><section><h2>テンプレートエンジン</h2></section><article><header><h1>lodash.jsを本当に使いこなす</h1><h2>テンプレートエンジン</h2></header><p>:sugoi:</p></article><section><h2>注意点</h2></section><article><header><h1>lodash.jsを本当に使いこなす</h1><h2>注意点</h2></header><ul><li><p>array用とobject用が別関数になっていたりするので注意</p></li><li><p>破壊的な変更をするものもあるので注意</p><ul><li>wrapperでつなぐと気にならないパターンもある</li></ul></li></ul></main><script>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+    background-color: rgba(0, 0, 0, 0.5);
+}</style></head><body><main></article><section><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1></section><section><h2>lodash.jsとは</h2></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2>lodash.jsとは</h2></header><blockquote><p>A modern JavaScript utility library delivering modularity, performance & extras.</p></blockquote><ul><li>ユーティリティー（なんか便利）関数を集めたやつ</li><li>めっちゃかるい</li><li>多少なりデータを取り回す案件では、 <strong>個人的には必須のライブラリ</strong></li></ul></article><section><h2>主な利用ケース</h2></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2>主な利用ケース</h2></header><ul><li>配列やオブジェクトをほしい形に整形する</li><li>イデオム系の実装を借りてくる</li><li>テンプレートエンジン</li></ul></article><section><h2><span>配列やオブジェクトを</span><span>ほしい形に整形する</span></h2></section><section><h3>each</h3></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2><span>配列やオブジェクトを</span><span>ほしい形に整形する</span></h2><h3>each</h3></header><p><pre><code>_.each(bigArray, (item) => {
+    console.log(item);
+});
+</code></pre></p><ul><li><code>_.xxx()</code> のかたちで呼び出す</li><li>さすがに中身は説明しません</li></ul></article><section><h3>map</h3></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2><span>配列やオブジェクトを</span><span>ほしい形に整形する</span></h2><h3>map</h3></header><p><pre><code>const charaArray = [{
+    id: 25,
+    name: 'ピカチュウ',
+    type: [ 'でんき' ]
+},{
+    id: 35,
+    name: 'ピッピ',
+    type: [ 'ノーマル' ]
+},{
+    id: 39,
+    name: 'プリン',
+    type: [ 'ノーマル' ]
+}];
+</code></pre></p><p><pre><code>const ids = _.map(charaArray, (chara) => {
+    return chara.id;
+});
+// => [ 25, 35, 39 ]
+</code></pre></p><ul><li>整形の基本。配列に入ったオブジェクトを一つずつループして、欲しい値だけ取り出してreturn</li></ul></article><section><h3>mapValues</h3></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2><span>配列やオブジェクトを</span><span>ほしい形に整形する</span></h2><h3>mapValues</h3></header><p><pre><code>const charaData = {
+    25: {
+        name: 'ピカチュウ', type: [ 'でんき' ]
+    },
+    35: {
+        name: 'ピッピ', type: [ 'ノーマル' ]
+    },
+    39: {
+        name: 'プリン', type: [ 'ノーマル' ]
+    }
+};
+&nbsp;
+</code></pre></p><p><pre><code>const idCharaName = _.mapValues(charaData, (chara) => {
+    return chara.name;
+});
+// => { 25: 'ピカチュウ': 35: 'ピッピ': 39: 'プリン' }
+</code></pre></p><ul><li><p>オブジェクトの値をひとつずつループして、欲しい値をつくってreturn</p></li><li><p>mapとの違いは配列ではなく、<strong>オブジェクトを受け取ってオブジェクトを返す</strong>こと</p></li></ul><p><hr></p><ul><li>配列を渡すと暗黙的にオブジェクトに変換してくるので注意</li></ul><p><pre><code>const ids = _.mapValues(charaArray, (chara) => {
+    return chara.id;
+});
+// => { 0: 25, 1: 35, 2: 39 }
+</code></pre></p></article><section><h3>mapKeys</h3></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2><span>配列やオブジェクトを</span><span>ほしい形に整形する</span></h2><h3>mapKeys</h3></header><p><pre><code>const idCharaData = _.mapKeys(charaArray, (chara) => {
+    return chara.id;
+});
+</code></pre></p><ul><li>オブジェクトのvalueをひとつずつループして、欲しい <strong>keyを</strong>つくってreturn</li><li>こちらはむしろ、暗黙的にオブジェクトに変換してくるのを上手く利用できるケース</li></ul></article><section><h3>filter</h3></section><section><h3>pickBy</h3></section><section><h3>invertBy / groupBy</h3></section><section><h3>shuffle / sample</h3></section><section><h3>sortBy / orderBy</h3></section><section><h2>wrapper記法</h2></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2>wrapper記法</h2></header><ul><li>wrapper記法を使うことで、複数のlodash関数を <strong>メソッドチェーンで繋ぐことができる</strong></li><li>ここまで使いこなすと、複雑なデータ変換もかなりスマートに書けるようになる</li></ul></article><section><h2>イデオム系の実装を借りてくる</h2></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2>イデオム系の実装を借りてくる</h2></header><ul><li>padStart</li><li>throttle / debounce</li></ul></article><section><h2>テンプレートエンジン</h2></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2>テンプレートエンジン</h2></header><p>:sugoi:</p></article><section><h2>注意点</h2></section><article><header><h1><span>lodash.jsを</span><span>本当に使いこなす</span></h1><h2>注意点</h2></header><ul><li><p>array用とobject用が別関数になっていたりするので注意</p></li><li><p>破壊的な変更をするものもあるので注意</p><ul><li>wrapperでつなぐと気にならないパターンもある</li></ul></li></ul></main><script>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -330,7 +390,7 @@ function isUndefined(arg) {
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function init(){var e=parseHash();setPageIndex(e>=0?e:0),initInnerPager(),initListeners(),setTimeout(setReady)}function parseHash(){var e=location.hash,n=e.match(/^#?p([1-9][0-9]*)/);return n?parseInt(n[1]):-1}function initListeners(){window.addEventListener("hashchange",function(){var e=parseHash();e>=0&&setPageIndex(e)}),window.addEventListener("resize",function(){innerPagerList.forEach(function(e){e&&e.reload()})})}function setReady(){for(var e=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],n=0;n<pages.length;n++){pages[n].setAttribute("data-ready",e)}}function setPageIndex(e){e=Math.max(e,0),e=Math.min(e,pages.length-1);for(var n=0;n<pages.length;n++){var t=pages[n];n===e?t.setAttribute(ATTR_STATE,"current"):n<e?t.setAttribute(ATTR_STATE,"past"):n>e&&t.setAttribute(ATTR_STATE,"future")}currentIndex=e,location.hash="#p"+e}function initInnerPager(){for(var e=0;e<pages.length;e++){var n=pages[e];if(/^article$/i.test(n.tagName)){var t=new _InnerPager2.default(n);t.on("overEnd",incrementPage),t.on("overStart",decrementPage),innerPagerList[e]=t}else innerPagerList[e]=null}}function incrementPage(){setPageIndex(currentIndex+1)}function decrementPage(){setPageIndex(currentIndex-1)}function increment(){var e=innerPagerList[currentIndex];e?e.increment():incrementPage()}function decrement(){var e=innerPagerList[currentIndex];e?e.decrement():decrementPage()}var _InnerPager=require("./lib/InnerPager"),_InnerPager2=_interopRequireDefault(_InnerPager),ATTR_STATE="data-state",pages=document.querySelectorAll("section,article"),innerPagerList=[],currentIndex=void 0;window.addEventListener("keydown",function(e){switch(e.which){case 37:case 38:decrement();break;case 39:case 40:increment()}}),init();
 
 },{"./lib/InnerPager":3}],3:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),_events=require("events"),_events2=_interopRequireDefault(_events),InnerPager=function(e){function t(e){_classCallCheck(this,t);var n=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return n.root=e,n.blocks=n.pickupBlocks(),n.reload(),n}return _inherits(t,e),_createClass(t,[{key:"pickupBlocks",value:function(){function e(n){var r=(arguments.length>1&&void 0!==arguments[1]&&arguments[1],/^h[1-9][0-9]*$/i.test(n.tagName)),o=window.getComputedStyle(n),i=o.display,s=n.offsetHeight&&"inline"!==i&&"none"!==i;if(r)return s;for(var a=!1,l=0;l<n.children.length;l++){var u=e(n.children[l],l);a=a||u}return n.children.length?a||t.push(n):s&&t.push(n),s}var t=[];return e(this.root),t}},{key:"reload",value:function(){this.setRangeStart(this.rangeStart)}},{key:"setRangeStart",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0;if(e>=this.blocks.length)return void this.emit("overEnd");this.blocks.forEach(function(t,n){t.style.display=n<e?"none":""});for(var t=0;this.root.scrollHeight>this.root.offsetHeight&&t<this.blocks.length;){var n=this.blocks.length-(t+1);this.blocks[n].style.display="none",t++}this.rangeStart=e,this.rangeEnd=this.blocks.length-t}},{key:"setRangeEnd",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this.blocks.length;if(e<=0)return void this.emit("overStart");this.blocks.forEach(function(t,n){t.style.display=n>=e?"none":""});for(var t=0;this.root.scrollHeight>this.root.offsetHeight;)this.blocks[t].style.display="none",t++;this.rangeStart=t,this.rangeEnd=e}},{key:"increment",value:function(){this.setRangeStart(this.rangeEnd)}},{key:"decrement",value:function(){this.setRangeEnd(this.rangeStart)}}]),t}(_events2.default);exports.default=InnerPager;
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),_events=require("events"),_events2=_interopRequireDefault(_events),IGNORE_PATTERN=new RegExp("^"+["header"].join("|")+"$","i"),SKIP_PATTERN=new RegExp("^"+["ul","ol","dl"].join("|")+"$","i"),InnerPager=function(e){function t(e){_classCallCheck(this,t);var n=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return n.root=e,n.blocks=n.pickupBlocks(),n.reload(),n}return _inherits(t,e),_createClass(t,[{key:"pickupBlocks",value:function(){function e(n){arguments.length>1&&void 0!==arguments[1]&&arguments[1];Array.from(n.children).forEach(function(n){IGNORE_PATTERN.test(n.tagName)||(SKIP_PATTERN.test(n.tagName)?e(n):t.push(n))})}var t=[];return e(this.root),t}},{key:"reload",value:function(){this.setRangeStart(this.rangeStart)}},{key:"setRangeStart",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0;if(e>=this.blocks.length)return void this.emit("overEnd");this.blocks.forEach(function(t,n){t.style.display=n<e?"none":""});for(var t=0;this.root.scrollHeight>this.root.offsetHeight&&t<this.blocks.length;){var n=this.blocks.length-(t+1);this.blocks[n].style.display="none",t++}this.rangeStart=e,this.rangeEnd=this.blocks.length-t}},{key:"setRangeEnd",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this.blocks.length;if(e<=0)return void this.emit("overStart");this.blocks.forEach(function(t,n){t.style.display=n>=e?"none":""});for(var t=0;this.root.scrollHeight>this.root.offsetHeight;)this.blocks[t].style.display="none",t++;this.rangeStart=t,this.rangeEnd=e}},{key:"increment",value:function(){this.setRangeStart(this.rangeEnd)}},{key:"decrement",value:function(){this.setRangeEnd(this.rangeStart)}}]),t}(_events2.default);exports.default=InnerPager;
 
 },{"events":1}]},{},[2]);
 </script></body></html>

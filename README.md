@@ -82,6 +82,8 @@ const idCharaName = _.mapValues(charaData, (chara) => {
 
 - mapとの違いは配列ではなく、**オブジェクトを受け取ってオブジェクトを返す**こと
 
+<hr>
+
 - 配列を渡すと暗黙的にオブジェクトに変換してくるので注意
 
 ```
@@ -99,14 +101,14 @@ const idCharaData = _.mapKeys(charaArray, (chara) => {
 });
 ```
 
-- オブジェクトのvalueをひとつずつループして、欲しい **keyを** つくってreturn
+- オブジェクトのvalueをひとつずつループして、欲しい **keyを**つくってreturn
 - こちらはむしろ、暗黙的にオブジェクトに変換してくるのを上手く利用できるケース
 
 ### filter
 ### pickBy
-### invertBy, groupBy
-### shuffle, sample
-### sortBy, orderBy
+### invertBy / groupBy
+### shuffle / sample
+### sortBy / orderBy
 
 ## wrapper記法
 
@@ -116,7 +118,7 @@ const idCharaData = _.mapKeys(charaArray, (chara) => {
 ## イデオム系の実装を借りてくる
 
 - padStart
-- throttle, debounce
+- throttle / debounce
 
 ## テンプレートエンジン
 
