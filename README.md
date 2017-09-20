@@ -296,8 +296,33 @@ _.sample(members);
 
 ## wrapper記法
 
-- wrapper記法を使うことで、複数のlodash関数を **メソッドチェーンで繋ぐことができる**
+- wrapper記法を使うことで、複数のlodash関数を **メソッドチェーンで繋ぐことができる** (第１引数が配列/オブジェクトなもの)
 - ここまで使いこなすと、複雑なデータ変換もかなりスマートに書けるようになる
+
+```
+// キャラの名前一覧をシャッフルして取得
+_(charaArray).map((chara) => {
+    return chara.name;
+}).shuffle().value();
+
+// 最終的な配列をとるために .value() というメソッドを叩く必要がある
+```
+
+```
+// メンバーのスコアを合計して、スコア上位５名を割り出した上で、
+// idをキーにしたオブジェクトにして返す
+_(members)
+    .map((member) => {
+        member.scoreSum = _.sum(member.scoreList);
+        return member;
+    })
+    .orderBy('scoreSum', 'desc')
+    .slice(0, 5)
+    .mapKeys((member) => {
+        return member.id;
+    })
+    .value();
+```
 
 ## イデオム系の実装を借りてくる
 

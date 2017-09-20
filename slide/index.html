@@ -178,7 +178,26 @@ code {
 &nbsp;
 // メンバーからランダムに１人選ぶ
 &#95;.sample(members);
-</code></pre></p></article><section><h2>wrapper記法</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>wrapper記法</h2></header><ul><li>wrapper記法を使うことで、複数のlodash関数を <strong>メソッドチェーンで繋ぐことができる</strong></li><li>ここまで使いこなすと、複雑なデータ変換もかなりスマートに書けるようになる</li></ul></article><section><h2>イデオム系の実装を借りてくる</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>イデオム系の実装を借りてくる</h2></header><ul><li>padStart</li><li>throttle / debounce</li></ul></article><section><h2>テンプレートエンジン</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>テンプレートエンジン</h2></header><p>:sugoi:</p></article><section><h2>注意点</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>注意点</h2></header><ul><li><p>array用とobject用が別関数になっていたりするので注意</p></li><li><p>破壊的な変更をするものもあるので注意</p><ul><li>wrapperでつなぐと気にならないパターンもある</li></ul></li></ul></main><script>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+</code></pre></p></article><section><h2>wrapper記法</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>wrapper記法</h2></header><ul><li>wrapper記法を使うことで、複数のlodash関数を <strong>メソッドチェーンで繋ぐことができる</strong> (第１引数が配列/オブジェクトなもの)</li><li>ここまで使いこなすと、複雑なデータ変換もかなりスマートに書けるようになる</li></ul><p><pre><code>// キャラの名前一覧をシャッフルして取得
+&#95;(charaArray).map((chara) => {
+    return chara.name;
+}).shuffle().value();
+&nbsp;
+// 最終的な配列をとるために .value() というメソッドを叩く必要がある
+</code></pre></p><p><pre><code>// メンバーのスコアを合計して、スコア上位５名を割り出した上で、
+// idをキーにしたオブジェクトにして返す
+&#95;(members)
+    .map((member) => {
+        member.scoreSum = &#95;.sum(member.scoreList);
+        return member;
+    })
+    .orderBy('scoreSum', 'desc')
+    .slice(0, 5)
+    .mapKeys((member) => {
+        return member.id;
+    })
+    .value();
+</code></pre></p></article><section><h2>イデオム系の実装を借りてくる</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>イデオム系の実装を借りてくる</h2></header><ul><li>padStart</li><li>throttle / debounce</li></ul></article><section><h2>テンプレートエンジン</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>テンプレートエンジン</h2></header><p>:sugoi:</p></article><section><h2>注意点</h2></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>注意点</h2></header><ul><li><p>array用とobject用が別関数になっていたりするので注意</p></li><li><p>破壊的な変更をするものもあるので注意</p><ul><li>wrapperでつなぐと気にならないパターンもある</li></ul></li></ul></main><script>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
