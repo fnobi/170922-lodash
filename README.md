@@ -186,7 +186,7 @@ _.filter(charaArray, (item) => {
 - 条件に合った **最初の要素** を返す
 
 ```
-_.find(charaData, (item) => {
+_.find(charaArray, (item) => {
     return _.includes(item.type, 'ノーマル');
 });
 // => { id: 35, name: 'ピッピ', type: [ 'ノーマル' ] }

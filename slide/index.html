@@ -129,7 +129,7 @@ code {
     return &#95;.includes(item.type, 'でんき');
 });
 // => [ { id: 25, name: 'ピカチュウ', type: [ 'でんき' ] } ]
-</code></pre></p></article><section><h3>find</h3></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>絞込系</h2><h3>find</h3></header><ul><li>条件に合った <strong>最初の要素</strong> を返す</li></ul><p><pre><code>&#95;.find(charaData, (item) => {
+</code></pre></p></article><section><h3>find</h3></section><article><header><h1><span>細かすぎるけど</span><span>伝わって欲しい</span><span>lodash.jsの話</span></h1><h2>絞込系</h2><h3>find</h3></header><ul><li>条件に合った <strong>最初の要素</strong> を返す</li></ul><p><pre><code>&#95;.find(charaArray, (item) => {
     return &#95;.includes(item.type, 'ノーマル');
 });
 // => { id: 35, name: 'ピッピ', type: [ 'ノーマル' ] }
