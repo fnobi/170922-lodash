@@ -152,7 +152,8 @@ _.groupBy(charaArray, 'id');
 '39': [ { id: 39, name: 'プリン', type: [Array] } ] }
 ）
 
-// valueに入るのは元と同じオブジェクトの配列（キーが被っているものをグルーピング```
+// valueに入るのは元と同じオブジェクトの配列（キーが被っているものをグルーピング
+```
 
 ```
 _.invertBy(charaArray, 'id');
