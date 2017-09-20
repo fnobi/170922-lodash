@@ -23,6 +23,11 @@ h2 span,
 h3 span {
     display: inline-block;
 }
+h1 footer,
+h2 footer,
+h3 footer {
+    font-size: 50%;
+}
 
 hr {
     border: none;
@@ -39,4 +44,5 @@ blockquote {
 
 code {
     background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
