@@ -14,7 +14,7 @@
 ## 主な利用ケース
 
 - 配列やオブジェクトをほしい形に整形する
-- イデオム系の実装を借りてくる
+- イデオム系の実装
 - テンプレートエンジン
 
 
@@ -324,11 +324,47 @@ _(members)
     .value();
 ```
 
-## イデオム系の実装を借りてくる
+## イデオム系の実装
 
-- padStart
-- throttle / debounce
+- 独自実装しないでlodashから借りてくることで、時間の短縮やバグ減少に役立つ
+
+### padStart
+
+- 数字のゼロ詰めなどをする
+- ゼロ以外で詰めたり、後ろに詰めたり（ `_.padEnd` ）
+
+```
+_.padStart(5, 2, '0'); // => '05'
+_.padStart(12, 4, '0'); // => '0012'
+_.padStart(100, 2, '0'); // => '100'
+```
+
+### throttle / debounce
+
+- おなじみ、処理を間引くやつ
+- 1度実行したらしばらくやらない => throttle
+- しばらく再実行されないのを待ってから実行 => debounce
+- lodashで数少ない非同期関数
 
 ## テンプレートエンジン
 
-:sugoi:
+- 動的にDOMを作るならReact? いえいえ、シンプルなやつならlodashだけでいけます。
+
+```
+// pug
+script#template-message-modal(type="template/lodash")
+  .modal
+    .modal__message!= '<%= message %>'
+```
+
+```
+const tmplSrc = document.getElementById('template-message-modal').innerHTML;
+const tmpl = _.template(tmplSrc);
+
+document.body.innerHTML += tmpl({ message: 'hello!!' });
+```
+
+## まとめ
+
+- fluxなりreduxなりを扱うと、絶対にpure objectをごりごりぶん回す機会は増えるので、覚えておくと損はないです
+- だいたいどういうことができるのかを掴んでおくと、「もしや」という時に見つけられるので、ドキュメントをブックマークしておこう
