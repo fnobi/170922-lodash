@@ -106,7 +106,7 @@ _.mapValues(charaArray, (chara) => {
 ```
 // 配列を渡して配列を返す
 _.map(charaArray, (chara) => {
-    return chara.id;
+    return chara.name;
 });
 // => [ 'ピカチュウ', 'ピッピ', 'プリン' ]
 
